@@ -1,0 +1,6 @@
+[submodule "wisercattest"]
+	path = wisercattest
+	url = https://github.com/stealandsell/wisercattest.git
+[submodule "front/angular-frontend"]
+	path = front/angular-frontend
+	url = https://github.com/stealandsell/wisercattest.git

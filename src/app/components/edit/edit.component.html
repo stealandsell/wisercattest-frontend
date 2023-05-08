@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Edit pet information</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+        crossorigin="anonymous">
+</head>
+
+<body class="bg-light">
+<header></header>
+<div class="container py-3">
+  <div class="py-5 text-center">
+    <h2>Edit pet information</h2>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 order-md-1">
+      <form method="post" name="editFormName" class="needs-validation" action="/edit" novalidate #editForm="ngForm" (ngSubmit)="onSubmit(editForm)">
+
+        <div class="mb-3">
+          <label for="name">Name</label>
+          <!--              <input type="text" class="form-control" name="name" id="name" placeholder="Name" [(ngModel)]="pet.name">-->
+          <input type="text" class="form-control" name="name" id="name" placeholder="Name" [(ngModel)]="pet.name" #name="ngModel" required minlength="1" maxlength="255">
+          <div *ngIf="name.invalid && (name.dirty || name.touched || editForm.submitted)"
+               class=".is-invalid">
+
+            <div *ngIf="name.errors?.['required']"  class=".invalid-feedback">
+              Name is required.
+            </div>
+            <div *ngIf="name.errors?.['minlength']"  class=".invalid-feedback">
+              Name must be at least 1 characters long.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="code">Code</label>
+          <div class="input-group">
+            <input type="text" class="form-control" name="code" id="code" placeholder="Code"  #code="ngModel" [(ngModel)]="pet.code" required minlength="1" maxlength="255">
+          </div>
+          <div *ngIf="code.invalid && (code.dirty || code.touched || editForm.submitted)"
+               class=".is-invalid">
+
+            <div *ngIf="code.errors?.['required']" class=".invalid-feedback">
+              Name is required.
+            </div>
+            <div *ngIf="code.errors?.['minlength']" class=".invalid-feedback" >
+              Name must be at least 4 characters long.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="types">Type</label>
+          <select class="custom-select d-block w-100" name="type" id="types" required #type="ngModel" [(ngModel)]="pet.type">
+            <option value="">Choose...</option>
+            <option *ngFor="let petType of petTypes" [value]="petType.name" >{{petType.name}}</option>
+          </select>
+          <div *ngIf="type.invalid && (type.dirty || type.touched || editForm.submitted)"
+               class=".is-invalid">
+
+            <div *ngIf="type.errors?.['required']" class=".invalid-feedback">
+              Type is required.
+            </div>
+          </div>
+        </div>
+
+
+        <div class="mb-3">
+          <label for="colors">Fur color</label>
+          <select class="custom-select d-block w-100" name="furColor" id="colors" #furColor="ngModel" [(ngModel)]="pet.furColor" required>
+            <option value="">Choose...</option>
+            <option *ngFor="let color of colors" [value]="color.name">{{color.name}}</option>
+          </select>
+          <div *ngIf="furColor.invalid && (furColor.dirty || furColor.touched || editForm.submitted)" class=".is-invalid">
+
+            <div *ngIf="furColor.errors?.['required']" class=".invalid-feedback">
+              Fur color is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="countries">Country of origin</label>
+          <select class="custom-select d-block w-100" name="countryOfOrigin" id="countries" #coutry="ngModel" [(ngModel)]="pet.countryOfOrigin">
+            <option value="">Choose...</option>
+            <option *ngFor="let coutry of countries" [value]="coutry.name">{{coutry.name}}</option>
+          </select>
+
+          <div *ngIf="coutry.invalid && (coutry.dirty || coutry.touched || editForm.submitted)"
+               class=".is-invalid">
+
+            <div *ngIf="coutry.errors?.['required']" class=".invalid-feedback">
+              Coutry is required.
+            </div>
+          </div>
+
+        </div>
+
+        <button class="btn btn-primary btn-lg btn-block" type="submit">
+          Save Pet
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2022 Wisercat</p>
+  </footer>
+</div>
+</body>
+</html>
