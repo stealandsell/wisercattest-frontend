@@ -13,8 +13,29 @@ export class PetService {
   private baseURL = "http://localhost:8080";
   constructor(private httpClient: HttpClient) { }
 
-  public getPetsList(): Observable<Pet[]>{
-    return this.httpClient.get<Pet[]>(`${this.baseURL}/api/pets`) ;
+  public getPetsList(username: string): Observable<Pet[]>{
+    console.log('getPetsList send username from token        -          ' + username);
+
+    const httpOptions = {
+      params: new HttpParams().set('username', username)
+    };
+
+    return this.httpClient.get<Pet[]>(this.baseURL + '/api/pets', httpOptions);
+
+
+
+  // public getPetsList(username: string): Observable<Pet[]>{
+  //   console.log('getPetsList send username from token        -          ' + username);
+  //
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       'Authorization': 'Bearer ' + username
+  //     })
+  //   };
+  //
+  //   return this.httpClient.get<Pet[]>(this.baseURL + '/api/pets', httpOptions);
+
+    // return this.httpClient.get<Pet[]>(`${this.baseURL}/api/pets`, ) ;
   }
 
 

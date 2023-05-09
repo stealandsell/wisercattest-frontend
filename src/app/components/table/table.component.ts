@@ -5,6 +5,7 @@ import { Pet } from './pet.model';
 import {PetService} from "../../services/pet.service";
 import {ActivatedRoute} from "@angular/router";
 import {PetClass} from "../../classes/pet-class";
+import {LoginService} from "../../services/login.service";
 // import { Pet } from './pet'
 
 
@@ -23,19 +24,22 @@ export class TableComponent implements OnInit {
 
   constructor(
     private petService: PetService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loginService: LoginService
   ) { }
 
+
   ngOnInit(): void {
+
     const username: string = this.loginService.getAuthToken();
-    this.getPets();
 
-
+    this.getPets(username);
 
   }
 
-  private getPets(){
-    this.petService.getPetsList().subscribe(data => {
+  private getPets(username: string){
+
+    this.petService.getPetsList(username).subscribe(data => {
       this.pets = data;
     })
   }
