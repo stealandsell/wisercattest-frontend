@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {PetService} from "./services/pet.service";
 import {Router} from "@angular/router";
@@ -16,8 +16,8 @@ export class AppComponent {
     private petService: PetService,
     private router: Router,
     private formBuilder: FormBuilder
-  ) {}
-
+  ) {
+  }
 
 
   logout() {

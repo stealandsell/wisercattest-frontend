@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Pet} from "../components/table/pet.model";
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +10,12 @@ export class PetService {
 
 
   private baseURL = "http://localhost:8080";
-  constructor(private httpClient: HttpClient) { }
+  private sortOrders: { [key: string]: string } = {};
 
-  public getPetsList(username: string): Observable<Pet[]>{
+  constructor(private httpClient: HttpClient) {
+  }
+
+  public getPetsList(username: string): Observable<Pet[]> {
     console.log('getPetsList send username from token        -          ' + username);
 
     const httpOptions = {
@@ -23,35 +25,16 @@ export class PetService {
     return this.httpClient.get<Pet[]>(this.baseURL + '/api/pets', httpOptions);
 
 
-
-  // public getPetsList(username: string): Observable<Pet[]>{
-  //   console.log('getPetsList send username from token        -          ' + username);
-  //
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Authorization': 'Bearer ' + username
-  //     })
-  //   };
-  //
-  //   return this.httpClient.get<Pet[]>(this.baseURL + '/api/pets', httpOptions);
-
-    // return this.httpClient.get<Pet[]>(`${this.baseURL}/api/pets`, ) ;
   }
-
 
   addPet(pet: Pet, username: string): Observable<Pet[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
-      }),
-      params: new HttpParams().set('username', username)
+      }), params: new HttpParams().set('username', username)
     };
     return this.httpClient.post<Pet[]>(this.baseURL + '/add', pet, httpOptions);
   }
-
-  // public addPet(pet: Pet): Observable<Pet[]>{
-  //   return this.httpClient.post<Pet[]>(`${this.baseURL}/add`, pet);
-  // }
 
   public getPetById(id: number): Observable<Pet> {
     const url = `${this.baseURL}/edit/${id}`;
@@ -64,9 +47,6 @@ export class PetService {
     const url = `${this.baseURL}/edit/${id}`;
     return this.httpClient.put<Pet>(url, updatedPet);
   }
-
-  private sortOrders: {[key: string]: string} = {};
-
 
   currentSortOrder(columnName: string): 'asc' | 'desc' | null {
     const sortOrder = this.sortOrders[columnName];

@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Pet } from './pet.model';
+import {Component, OnInit} from '@angular/core';
+import {Pet} from './pet.model';
 import {PetService} from "../../services/pet.service";
 import {ActivatedRoute} from "@angular/router";
 import {PetClass} from "../../classes/pet-class";
 import {LoginService} from "../../services/login.service";
+
 // import { Pet } from './pet'
 
 
@@ -13,7 +12,6 @@ import {LoginService} from "../../services/login.service";
   selector: 'app-table',
   templateUrl: './table.component.html',
 })
-
 
 
 export class TableComponent implements OnInit {
@@ -26,7 +24,8 @@ export class TableComponent implements OnInit {
     private petService: PetService,
     private route: ActivatedRoute,
     private loginService: LoginService
-  ) { }
+  ) {
+  }
 
 
   ngOnInit(): void {
@@ -35,13 +34,6 @@ export class TableComponent implements OnInit {
 
     this.getPets(username);
 
-  }
-
-  private getPets(username: string){
-
-    this.petService.getPetsList(username).subscribe(data => {
-      this.pets = data;
-    })
   }
 
   sortColumn(columnName: string) {
@@ -67,32 +59,13 @@ export class TableComponent implements OnInit {
     // Update the current sort order of the column
     this.petService.setSortOrder(columnName, sortOrder);
   }
+
+  private getPets(username: string) {
+
+    this.petService.getPetsList(username).subscribe(data => {
+      this.pets = data;
+    })
+  }
 }
 
 
-// ngOnInit() {
-//   this.pets = [{
-//     "id": 1,
-//     "name": "wwwwwww",
-//     "code": "44210",
-//     "type": "852",
-//     "fur_color": "5620",
-//     "country_of_origin": "523652"
-//   },
-//     {
-//       "id": 2,
-//       "name": "wwwwwww",
-//       "code": "44210",
-//       "type": "852",
-//       "fur_color": "5620",
-//       "country_of_origin": "523652"
-//     }
-//
-//   ]
-// }
-// updatePet(pet: Pet){
-//   const id = this.route.snapshot.paramMap.get('id')!;
-//   this.petService.getPetById(Number(id)).subscribe(pet => {
-//     this.pet = pet;
-//   });
-// }
